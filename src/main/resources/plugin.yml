@@ -1,0 +1,13 @@
+name: MostlyNoRefunds
+main: ws.mcserver.in.MostlyNoRefunds
+version: ${project.version}
+api-version: 1.13
+commands:
+  refund:
+    description: Refund an inventory to a player
+    usage: /refund <Player> <Death ID>
+
+permissions:
+  maybenorefunds.refund:
+    description: Refund a user's items
+    default: op

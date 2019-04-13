@@ -1,0 +1,52 @@
+import java.time.LocalDateTime
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
+
+buildscript {
+    repositories {
+        jcenter()
+        mavenCentral()
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        classpath "com.github.jengelman.gradle.plugins:shadow:4.0.1"
+    }
+}
+
+apply plugin: "com.github.johnrengelman.shadow"
+apply plugin: "java"
+apply plugin: "idea"
+
+configurations {
+    compile.extendsFrom(bundle, server)
+}
+
+version = "1.0.0"
+if (!project.hasProperty("Release")) version += '-' + LocalDateTime.now(ZoneId.of("America/Chicago")).format(DateTimeFormatter.ofPattern("yyMMddHHmm"))
+
+
+repositories {
+    mavenCentral()
+    maven { url 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/' }
+    maven { url 'http://maven.elmakers.com/repository/' } //Spigot
+}
+
+processResources {
+    filesMatching("**/*.yml") {
+        expand(project.properties)
+    }
+}
+
+dependencies {
+    compile "org.spigotmc:spigot:1.13.2-R0.1-SNAPSHOT"
+}
+
+jar {
+    baseName = "Generated-${project.name}"
+    version = rootProject?.version ?: project.version
+    destinationDir = rootProject?.libsDir ?: libsDir
+}
+
+build.dependsOn = ['jar']
