@@ -29,8 +29,7 @@ if (!project.hasProperty("Release")) version += '-' + LocalDateTime.now(ZoneId.o
 
 repositories {
     mavenCentral()
-    maven { url 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/' }
-    maven { url 'http://maven.elmakers.com/repository/' } //Spigot
+    maven { url 'https://hub.spigotmc.org/nexus/content/repositories/public/' } //Spigot
 }
 
 processResources {
@@ -40,7 +39,7 @@ processResources {
 }
 
 dependencies {
-    compile "org.spigotmc:spigot:1.13.2-R0.1-SNAPSHOT"
+    compile "org.spigotmc:spigot-api:1.14-R0.1-SNAPSHOT"
 }
 
 jar {
