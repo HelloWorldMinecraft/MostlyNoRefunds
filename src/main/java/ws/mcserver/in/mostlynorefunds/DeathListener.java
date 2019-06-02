@@ -1,4 +1,4 @@
-package ws.mcserver.in;
+package ws.mcserver.in.mostlynorefunds;
 
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.event.EventHandler;
@@ -10,7 +10,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.UUID;
 
-//TODO Subpackage
 public class DeathListener implements Listener {
     private JavaPlugin plugin;
 

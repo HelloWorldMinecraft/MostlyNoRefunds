@@ -1,4 +1,4 @@
-package ws.mcserver.in;
+package ws.mcserver.in.mostlynorefunds;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;

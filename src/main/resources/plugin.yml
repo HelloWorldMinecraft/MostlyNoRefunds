@@ -1,5 +1,5 @@
 name: MostlyNoRefunds
-main: ws.mcserver.in.MostlyNoRefunds
+main: ws.mcserver.in.mostlynorefunds.MostlyNoRefunds
 version: ${project.version}
 authors: [HelloWorld]
 api-version: "1.13"
