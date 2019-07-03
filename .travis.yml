@@ -1,31 +1,43 @@
+#Basic java stuff
 language: java
-script: gradle build
 jdk:
   - openjdk8
+
+#Install tasks (Can't use apt - outdated)
 install:
-  - echo Do Nothing Here!
+  - curl -s get.sdkman.io | bash
+  - source "$HOME/.sdkman/bin/sdkman-init.sh"
+  - echo sdkman_auto_answer=true > ~/.sdkman/etc/config
+  - source "/home/travis/.sdkman/bin/sdkman-init.sh"
+  - sdk install gradle 5.5
+
+#Our projects don't have a gradle wrapper
+script: gradle build -Prelease
+
+#Don't build untagged branches
 branches:
   except:
     - untagged*
-before_deploy:
-  - gem install octokit -v 4.3.0
-deploy:
-  provider: releases
-  api_key:
-    secure: s2AAlmw8wtMkepUrCsy3MFOxyY+A1s+f+fvvBU02DT4Ig++xftJkjOdhmI5kyMyjIsAh+OcUXQUUpwyE53HwEw/VwwlJZXhpTExU+HkEb0dWvtNgke/tpN1vAqPhnTYE3OlkEkpVvRQvo5V5LbnwF+UXjl1KapTEEBfRsTBF8xfbwV8B787hqR+vwGndyb+dYZ/H4MZ2oBP+dWF4S/HAwOKLfWyp1kUn6I5BNmP7jJxRpfdSYBSxcI1UpRfATeEfR/jSIZyLQQQrMj3nKBtIz4VnyjG7GIq7NqYy2BAoSXN4M8X5DGj19u/I13h+QY3mrx/oJcJzVhyd9NTut8bcxAa/NZFk4W+CevUPX7cjbK+Qz61S97EMpcFlLwTJYCeVrmY6r+VE+DfrHpVi1xLk6YwP951iV+kEVNCrUAZIxFP2Xlbti4zJmZaQ4mX76GV5bfYwU304acDIBzsCRaIA3a7/7XQkJ8C8Yf7tANBvYcHUUx+CAI0/qyFXhnH7/xUoHNT7qoYUMwtUnSKZulUXcpHTBS8OIy23+2eh5WAAoJK1Cq1euq2rFP4xX5Txei1V+siJeUJZYhil7wI6mfPHeQlwcu0UflTzjsZtLerUCDbu3yi3UDJ/gkQc0HIK+WQ13uXLO9jilUnYTGzUvYde19GiNiADvcOs23bE4BwjEdg=
-  file: build/libs/*
-  on:
-    repo: HelloWorldMinecraft/MostlyNoRefunds
-  file_glob: true
-  skip_cleanup: true
+
+#Don't pester me about this stuff
 notifications:
   email: false
-after_success:
-  - wget https://raw.githubusercontent.com/k3rn31p4nic/travis-ci-discord-webhook/master/send.sh
-  - chmod +x send.sh
-  - "./send.sh success $WEBHOOK_URL"
-after_failure:
-  - wget https://raw.githubusercontent.com/k3rn31p4nic/travis-ci-discord-webhook/master/send.sh
-  - chmod +x send.sh
-  - "./send.sh failure $WEBHOOK_URL"
 
+#Deployment
+deploy:
+  provider: releases
+
+  #Cleanup deletes the file we build
+  skip_cleanup: true
+
+  #Point to the "libs" folder
+  file_glob: true
+  file: build/libs/*
+
+  #Acceptable repository
+  on:
+    repo: HelloWorldMinecraft/MostlyNoRefunds
+
+  #API Key
+  api_key:
+    secure: s2AAlmw8wtMkepUrCsy3MFOxyY+A1s+f+fvvBU02DT4Ig++xftJkjOdhmI5kyMyjIsAh+OcUXQUUpwyE53HwEw/VwwlJZXhpTExU+HkEb0dWvtNgke/tpN1vAqPhnTYE3OlkEkpVvRQvo5V5LbnwF+UXjl1KapTEEBfRsTBF8xfbwV8B787hqR+vwGndyb+dYZ/H4MZ2oBP+dWF4S/HAwOKLfWyp1kUn6I5BNmP7jJxRpfdSYBSxcI1UpRfATeEfR/jSIZyLQQQrMj3nKBtIz4VnyjG7GIq7NqYy2BAoSXN4M8X5DGj19u/I13h+QY3mrx/oJcJzVhyd9NTut8bcxAa/NZFk4W+CevUPX7cjbK+Qz61S97EMpcFlLwTJYCeVrmY6r+VE+DfrHpVi1xLk6YwP951iV+kEVNCrUAZIxFP2Xlbti4zJmZaQ4mX76GV5bfYwU304acDIBzsCRaIA3a7/7XQkJ8C8Yf7tANBvYcHUUx+CAI0/qyFXhnH7/xUoHNT7qoYUMwtUnSKZulUXcpHTBS8OIy23+2eh5WAAoJK1Cq1euq2rFP4xX5Txei1V+siJeUJZYhil7wI6mfPHeQlwcu0UflTzjsZtLerUCDbu3yi3UDJ/gkQc0HIK+WQ13uXLO9jilUnYTGzUvYde19GiNiADvcOs23bE4BwjEdg=
