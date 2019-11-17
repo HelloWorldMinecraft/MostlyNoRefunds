@@ -1,1 +1,1 @@
-apply from: "https://raw.githubusercontent.com/HelloWorldMinecraft/BuildSystem/master/plugin.gradle"
+apply from: rootProject.file("../plugin.gradle").exists() ? rootProject.file("../plugin.gradle") : "https://raw.githubusercontent.com/HelloWorldMinecraft/BuildSystem/master/plugin.gradle"
