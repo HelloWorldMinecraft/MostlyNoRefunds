@@ -1,8 +1,8 @@
-name: MostlyNoRefunds
+name: ${project.name}
 main: ws.mcserver.in.mostlynorefunds.MostlyNoRefunds
 version: ${project.version}
-authors: [HelloWorld]
-api-version: "1.13"
+authors: [Username4723]
+api-version: ${project.apiversion}
 commands:
   refund:
     description: Refund an inventory to a player
