@@ -21,7 +21,7 @@ public class DeathListener implements Listener {
     public void onPlayerDeath(PlayerDeathEvent event) {
         UUID deathUUID = UUID.randomUUID();
 
-        plugin.getLogger().info(event.getEntity().getName() + " has died at " + event.getEntity().getLocation() + " with " + event.getEntity().getExp() + " EXP.");
+        plugin.getLogger().info(event.getEntity().getName() + " has died at " + event.getEntity().getLocation() + " with " + event.getEntity().getTotalExperience() + " EXP.");
         plugin.getLogger().info("To restore items, run /refund " + event.getEntity().getName() + " " + deathUUID + "");
 
         YamlConfiguration configuration = new YamlConfiguration();

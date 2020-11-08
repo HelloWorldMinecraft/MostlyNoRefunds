@@ -1,3 +1,26 @@
-version 1.0
+plugins {
+    id 'idea'
+    id 'kr.entree.spigradle' version '2.1.1'
+}
 
-apply from: rootProject.file("../plugin.gradle").exists() ? rootProject.file("../plugin.gradle") : "https://raw.githubusercontent.com/HelloWorldMinecraft/BuildSystem/master/plugin.gradle"
+dependencies {
+    compileOnly spigot("1.16.4")
+}
+
+spigot {
+    authors "Red3842"
+    apiVersion "1.16"
+    commands {
+        refund {
+            description "Refund an inventory to a player"
+            usage "/refund <Player> <Death ID>"
+            permission "mostlynorefunds.refund"
+        }
+    }
+    permissions {
+        "mostlynorefunds.refund" {
+            description "Refund a user's items."
+            defaults "op"
+        }
+    }
+}

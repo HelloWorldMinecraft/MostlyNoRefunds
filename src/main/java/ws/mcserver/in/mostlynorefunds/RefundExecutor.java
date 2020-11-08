@@ -25,7 +25,7 @@ public class RefundExecutor implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String name, String[] args) {
-        if (!commandSender.hasPermission("mostlynorefunds.refund") || args.length != 2) return false;
+        if (args.length != 2) return false;
 
         Player player = Bukkit.getPlayer(args[0]);
         if (player == null) {
